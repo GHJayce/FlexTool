@@ -60,7 +60,15 @@ a{color:#fff;align-self: flex-start;}
     border-radius: 4px;
     overflow: auto;
 }
+.values input {
+	background-color: transparent;
+	border: none;
+	border-radius: 2px;
+	color: #fff;
+	outline: none;
+}
 code {
+	margin: -20px 0;
     display: block;
 }
 .show{

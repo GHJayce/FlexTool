@@ -35,28 +35,28 @@ window.onload=function(){
 					codeParent.innerText = ".flex-container{\n"+ showCode(showResultParent.style.cssText.split(";")) +"\n}";
 					hljs.highlightBlock(codeParent);
 					break;
-				case "child":
-					// 属性赋值给盒子元素，这里挑了第三个盒子
-					var showResultChild = showResultParent.querySelector(".flex-item:nth-child(3)");
-					// 属性是手动输入，自定义属性data-contol="input"
-					if(element.getAttribute("data-contol")=="input"){
-						element.innerText = 0;
-						element.setAttribute("contenteditable",true); // 可编辑
-						element.onkeyup=function(){
-							element.setAttribute("data-value",element.textContent);
-							propertyName = element.getAttribute("data") || propertyName;
-							showResultChild.style.cssText += propertyName +":"+ element.getAttribute("data-value");
-							// 点击标签显示对应代码
-							codeChild.innerText = ".flex-item:nth-child(3){\n"+ showCode(showResultChild.style.cssText.split(";")) +"\n}";
-							hljs.highlightBlock(codeChild);
-						}
-					}else{
-						showResultChild.style.cssText += propertyName +":"+ valueName;
-						// 点击标签显示对应代码
-						codeChild.innerText = ".flex-item:nth-child(3){\n"+ showCode(showResultChild.style.cssText.split(";")) +"\n}";
-						hljs.highlightBlock(codeChild);
-					}
-					break;
+				// case "child":
+				// 	// 属性赋值给盒子元素，这里挑了第三个盒子
+				// 	var showResultChild = showResultParent.querySelector(".flex-item:nth-child(3)");
+				// 	// 属性是手动输入，自定义属性data-contol="input"
+				// 	if(element.getAttribute("data-contol")=="input"){
+				// 		element.innerText = 0;
+				// 		element.setAttribute("contenteditable",true); // 可编辑
+				// 		element.onkeyup=function(){
+				// 			element.setAttribute("data-value",element.textContent);
+				// 			propertyName = element.getAttribute("data") || propertyName;
+				// 			showResultChild.style.cssText += propertyName +":"+ element.getAttribute("data-value");
+				// 			// 点击标签显示对应代码
+				// 			codeChild.innerText = ".flex-item:nth-child(3){\n"+ showCode(showResultChild.style.cssText.split(";")) +"\n}";
+				// 			hljs.highlightBlock(codeChild);
+				// 		}
+				// 	}else{
+				// 		showResultChild.style.cssText += propertyName +":"+ valueName;
+				// 		// 点击标签显示对应代码
+				// 		codeChild.innerText = ".flex-item:nth-child(3){\n"+ showCode(showResultChild.style.cssText.split(";")) +"\n}";
+				// 		hljs.highlightBlock(codeChild);
+				// 	}
+				// 	break;
 			}
 		}
 	},true);
@@ -100,8 +100,8 @@ function toolTip(element){
 
 				tooltip.appendChild(tooltipInner);
 				document.body.appendChild(tooltip);
-
-				var top = ele.offsetTop - tooltip.offsetHeight - 5;
+				// console.log(e, ele.offsetTop, tooltip.offsetHeight - 5)
+				var top = e.y - tooltip.offsetHeight - 5;
 				var left = ele.offsetLeft + ele.offsetWidth / 2 - tooltip.offsetWidth / 2;
 				left = left <= 0 ? -5 : left;
 				tooltip.style.cssText = "top:"+ top +"px;left:"+ left +"px;";

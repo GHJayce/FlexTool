@@ -38,52 +38,38 @@
 					<a class="value" :class="{active: nowChild === k}" @click="chooseBox(k)">Box{{ box }}</a>
 				</template>
 			</li>
-			<li>
-				<div class="propertys">
-					<span class="property" data="align-self" data-title="align-self">自身Y轴对齐：</span>
-				</div>
-				<div class="values" data-bind="child">
-					<label class="value default" data-value="auto" data-title="如果'align-self'的值为'auto'，则其计算值为元素的父元素的'align-items'值，如果其没有父元素，则计算值为'stretch'">auto</label>
-					<label class="value" data-value="flex-start" data-title="对齐Y轴的顶部">flex-start</label>
-					<label class="value" data-value="flex-end" data-title="对齐Y轴的底部">flex-end</label>
-					<label class="value" data-value="center" data-title="对齐Y轴的中间">center</label>
-					<label class="value" data-value="baseline" data-title="如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐">baseline</label>
-					<label class="value" data-value="stretch" data-title="如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制">stretch</label>
-				</div>
-			</li>
-			<li>
-				<div class="propertys">
-					<span class="property" data="flex" data-title="flex <br> 属性是 flex-grow、flex-shrink 和 flex-basis 属性的简写属性，默认值：0 1 auto">分配空间：</span>
-				</div>
-				<div class="values" data-bind="child">
-					<label class="value" data-value="auto" data-title="与 1 1 auto 相同">auto</label>
-					<label class="value default" data-value="initial" data-title="与 0 1 auto 相同">initial</label>
-					<label class="value" data-value="inherit" data-title="从父元素继承该属性">inherit</label>
-					<label class="value" data-value="none" data-title="与 0 0 auto 相同">none</label>
-					<label class="value" data-contol="input" data="flex-grow" data-value="" data-title="flex-grow 数字（正值），定义弹性盒子元素的扩展比率">flex-grow</label>
-					<label class="value" data-contol="input" data="flex-shrink" data-value="" data-title="flex-shrink 数字（正值），定义弹性盒子元素的收缩比率">flex-shrink</label>
-					<label class="value" data-contol="input" data="flex-basis" data-value="" data-title="flex-basis 数字（正值），有单位，定义弹性盒子元素的默认基准值">flex-basis</label>
-				</div>
-			</li>
-			<li>
-				<div class="propertys">
-					<span class="property" data="order" data-title="order">排序：</span>
-				</div>
-				<div class="values" data-bind="child">
-					<label class="value" data-contol="input" data-value="" data-title="用整数值来定义排列顺序，数值小的排在前面。可以为负值。">order</label>
-				</div>
-			</li>
-			<li>
-				<div class="propertys">
-					<span class="property" data="margin" data-title="margin">完美居中：</span>
-				</div>
-				<div class="values" data-bind="child">
-					<label class="value" data-contol="input" data-value="" data-title="上右下左，auto值为垂直水平居中">auto</label>
-				</div>
-			</li>
+
+			<template v-for="(ce, ppk) in childElement">
+				<template v-if="ppk === nowChild">
+					<template v-for="(ce, pk) in ce">
+						<li>
+							<div class="propertys">
+								<span class="property" :data="ce.property" :data-title="ce.description.chn">{{ ce.property }}：</span>
+							</div>
+							<div class="values" data-bind="child">
+								<template v-for="(v, vk) in ce.value">							
+									<template v-if="v.control === 'input'">
+										<input class="value" :class="{default: v.default, active: false}" :type="v.type" :placeholder="v.placeholder" :min="v.min" :style="v.style" v-model="v.value" :data-title="v.description.chn" @input="chooseBoxValue(pk, vk, true)">
+									</template>
+									<template v-else>
+										<label class="value" :class="{default: v.default, active: false}" :data-value="v.name" :data-title="v.description.chn" @click="chooseBoxValue(pk, vk)">
+											{{ v.name }}
+										</label>
+									</template>
+								</template>
+							</div>
+						</li>
+					</template>
+				</template>
+			</template>
 		</ul>
 		<h3>代码</h3>
-		<pre><code class="code-wrap-parent"></code><code class="code-wrap-child"></code></pre>
+		<pre>
+			<code class="code-wrap-parent"></code>
+			<template v-for="(v, k) in childNum">
+				<code :class="'code-wrap-child-'+ v"></code>
+			</template>
+		</pre>
 		<br>
 		<h3>相关</h3>
 		<a href="http://flexboxfroggy.com/#zh-cn" target="_blank">弹性盒子小游戏</a>
@@ -113,7 +99,42 @@ const app = new Vue({
 		},
 		chooseBox: function (k) {
 			this.nowChild = k
+		},
+		chooseBoxValue: function (propertyKey, valueKey, enter) {
+			enter = enter || false;
+
+			const choose = this.childElement[this.nowChild][propertyKey],
+				childNumber = this.nowChild + 1,
+				codeWrap = $(".code-wrap-child-"+ childNumber),
+				nowBox = $(".flex-item:nth-child("+ childNumber +")");
+
+			this.childElement[this.nowChild][propertyKey].chooseValue = choose.value[valueKey].name; // 存储当前选择的值
+			// console.log(this.childElement);
+			// this.childElement[this.nowChild].chooseValue = choose.value[valueKey].name; // 存储当前选择的值
+			
+			if (enter){
+				nowBox.style.cssText += choose.value[valueKey].name +":"+ choose.value[valueKey].value;
+			} else {
+				nowBox.style.cssText += choose.property +":"+ choose.value[valueKey].name;
+			}
+
+			if (enter === false || choose.value[valueKey].value !== "") {
+				// 代码高亮
+				const style = nowBox.style.cssText.replace(/; /g, ";").split(";");
+				style.pop();
+				var nowBoxStyle = style.join(";\n\t");
+				codeWrap.innerText = `.flex-item:nth-child(${childNumber}){\n\t${nowBoxStyle}\n}`;
+				hljs.highlightBlock(codeWrap);
+			}
 		}
+	},
+	watch: {
+		nowChild: {  
+            handler: function(val,oldval) {
+                console.log(val.name)
+            },
+            deep:true//对象内部的属性监听，也叫深度监听
+        }
 	},
 	data: {
 		parentElement: [
@@ -385,6 +406,10 @@ const app = new Vue({
 						control: "input",
 						type: "number",
 						name: "flex-grow",
+						placeholder: "0",
+						style: "width: 60px",
+						value: "",
+						min: 0,
 						description: {
 							"chn": "flex-grow 数字（正值），定义弹性盒子元素的扩展比率"
 						}
@@ -393,14 +418,22 @@ const app = new Vue({
 						control: "input",
 						type: "number",
 						name: "flex-shrink",
+						placeholder: "1",
+						style: "width: 60px",
+						value: "",
+						min: 0,
 						description: {
 							"chn": "flex-shrink 数字（正值），定义弹性盒子元素的收缩比率"
 						}
 					},
 					{
 						control: "input",
-						type: "number",
+						type: "text",
 						name: "flex-basis",
+						placeholder: "auto",
+						style: "width: 60px",
+						value: "",
+						min: 0,
 						description: {
 							"chn": "flex-basis 数字（正值），有单位，定义弹性盒子元素的默认基准值"
 						}
@@ -416,6 +449,9 @@ const app = new Vue({
 					{
 						control: "input",
 						type: "number",
+						style: "width: 60px",
+						name: "order",
+						value: "",
 						description: {
 							"chn": "用整数值来定义排列顺序，数值小的排在前面。可以为负值。"
 						}
@@ -425,13 +461,16 @@ const app = new Vue({
 			{
 				property: "margin",
 				description: {
-					"chn": "排序"
+					"chn": "完美居中"
 				},
 				value: [
 					{
 						control: "input",
 						type: "text",
-						placeholder: "",
+						name: "margin",
+						placeholder: "5px 3px 5px 3px / auto",
+						style: "width: 160px",
+						value: "",
 						description: {
 							"chn": "数字，四个值，分别是上右下左<br>或者 auto（垂直水平居中）"
 						}
