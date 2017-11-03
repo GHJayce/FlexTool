@@ -63,49 +63,49 @@ window.onload=function(){
 	
 }
 
-	// 显示代码
-	function showCode(arr){
-		var str = '\t';
-		for(var i=0;i<arr.length;i++){
-			str += arr[i].replace(/(^\s+)|(\s+$)/g, ";\n\t");
-		}
-		return str
+// 显示代码
+function showCode(arr){
+	var str = '\t';
+	for(var i=0;i<arr.length;i++){
+		str += arr[i].replace(/(^\s+)|(\s+$)/g, ";\n\t");
 	}
+	return str
+}
 
-	// 获取元素
-	function $(element){
-		return document.querySelector(element);
-	}
+// 获取元素
+function $(element){
+	return document.querySelector(element);
+}
 
-	// 提示气泡
-	function toolTip(element){
-		element.addEventListener("mousemove",function(e){
-			var ele = e.target;
-			if(ele.getAttribute("data-title")!=undefined&&ele.getAttribute("data-title")!=""){
-				if($(".tooltip")!=undefined){
-					$(".tooltip .tooltip-inner").innerHTML = ele.getAttribute("data-title");
+// 提示气泡
+function toolTip(element){
+	element.addEventListener("mousemove",function(e){
+		var ele = e.target;
+		if(ele.getAttribute("data-title")!=undefined&&ele.getAttribute("data-title")!=""){
+			if($(".tooltip")!=undefined){
+				$(".tooltip .tooltip-inner").innerHTML = ele.getAttribute("data-title");
 
-					ele.addEventListener("mouseout",function(){
-						if($(".tooltip")!=undefined){
-							document.body.removeChild($(".tooltip"));
-							return
-						}
-					},true);
-				}else{					
-					var tooltip = document.createElement("div");
-					tooltip.className = "tooltip";
-					var tooltipInner = document.createElement("div");
-					tooltipInner.className = "tooltip-inner";
-					tooltipInner.innerHTML = ele.getAttribute("data-title");
+				ele.addEventListener("mouseout",function(){
+					if($(".tooltip")!=undefined){
+						document.body.removeChild($(".tooltip"));
+						return
+					}
+				},true);
+			}else{					
+				var tooltip = document.createElement("div");
+				tooltip.className = "tooltip";
+				var tooltipInner = document.createElement("div");
+				tooltipInner.className = "tooltip-inner";
+				tooltipInner.innerHTML = ele.getAttribute("data-title");
 
-					tooltip.appendChild(tooltipInner);
-					document.body.appendChild(tooltip);
+				tooltip.appendChild(tooltipInner);
+				document.body.appendChild(tooltip);
 
-					var top = ele.offsetTop - tooltip.offsetHeight - 5;
-					var left = ele.offsetLeft + ele.offsetWidth / 2 - tooltip.offsetWidth / 2;
-					left = left <= 0 ? -5 : left;
-					tooltip.style.cssText = "top:"+ top +"px;left:"+ left +"px;";
-				}
+				var top = ele.offsetTop - tooltip.offsetHeight - 5;
+				var left = ele.offsetLeft + ele.offsetWidth / 2 - tooltip.offsetWidth / 2;
+				left = left <= 0 ? -5 : left;
+				tooltip.style.cssText = "top:"+ top +"px;left:"+ left +"px;";
 			}
-		},true);
-	}
+		}
+	},true);
+}

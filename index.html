@@ -32,9 +32,11 @@
 		<ul>
 			<li>
 				<div class="propertys">
-					<span class="property" data-title="属性只会对单独的元素有效">操作元素：</span>
+					<span class="property" data-title="属性只会对选中的元素有效">操作元素：</span>
 				</div>
-				<a class="value active">盒子3</a>
+				<template v-for="(box, k) in childNum">
+					<a class="value" :class="{active: nowChild === k}" @click="chooseBox(k)">Box{{ box }}</a>
+				</template>
 			</li>
 			<li>
 				<div class="propertys">
@@ -101,10 +103,17 @@
 const app = new Vue({
 	el: '#app',
 	mounted: function () {
-		for (let i = 0; i < this.childNum; i++) {
-			// childElement.push(this.childProperty)
+		this.init()
+	},
+	methods: {
+		init: function () {
+			for (let i = 0; i < this.childNum; i++) {
+				this.childElement.push(this.childProperty)
+			}
+		},
+		chooseBox: function (k) {
+			this.nowChild = k
 		}
-		console.log(this.childElement)
 	},
 	data: {
 		parentElement: [
@@ -294,6 +303,7 @@ const app = new Vue({
 		],
 		childNum: 5,
 		childElement: [],
+		nowChild: 0,
 		childProperty: [
 			{
 				property: "align-self",
