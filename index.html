@@ -2,145 +2,437 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>flex tool</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/monokai-sublime.css">
+	<script src="js/highlight.pack.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/vue.min.js"></script>
 </head>
 <body>
 
-<aside class="control">
-	<h3>父元素属性</h3>
-	<ul>
-		<li>
-			<div class="propertys">
-				<span class="property" data="flex-direction" data-title="flex-direction">排列方式：</span>
-			</div>
-			<div class="values" data-bind="parent">
-				<label class="value default" data-value="row" data-title="横向排列，从左到右排列（左对齐），默认的排列方式">row</label>
-				<label class="value" data-value="row-reverse" data-title="反转横向排列，从右到左排列（右对齐）">row-reverse</label>
-				<label class="value" data-value="column" data-title="纵向排列，从上到下排列">column</label>
-				<label class="value" data-value="column-reverse" data-title="反转纵向排列，从下到上排列">column-reverse</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="justify-content" data-title="justify-content <br> 对齐方式，不会改变盒子排序">内容对齐：</span>
-			</div>
-			<div class="values" data-bind="parent">
-				<label class="value default" data-value="flex-start" data-title="左对齐，默认的对齐方式">flex-start</label>
-				<label class="value" data-value="flex-end" data-title="右对齐">flex-end</label>
-				<label class="value" data-value="center" data-title="居中对齐，紧挨着">center</label>
-				<label class="value" data-value="space-between" data-title="平均分布，相邻间隔相等">space-between</label>
-				<label class="value" data-value="space-around" data-title="平均分布，左右间隔相等">space-around</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="align-items" data-title="align-items <br> 不会改变盒子排序">Y轴对齐：</span>
-			</div>
-			<div class="values" data-bind="parent">
-				<label class="value" data-value="flex-start" data-title="对齐Y轴的顶部">flex-start</label>
-				<label class="value" data-value="flex-end" data-title="对齐Y轴的底部">flex-end</label>
-				<label class="value" data-value="center" data-title="对齐Y轴的中间">center</label>
-				<label class="value" data-value="baseline" data-title="如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐">baseline</label>
-				<label class="value default" data-value="stretch" data-title="如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制">stretch</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="flex-wrap" data-title="flex-wrap">换行方式：</span>
-			</div>
-			<div class="values" data-bind="parent">
-				<label class="value default" data-value="nowrap" data-title=" 默认，弹性容器为单行">nowrap</label>
-				<label class="value" data-value="wrap" data-title="弹性容器为多行">wrap</label>
-				<label class="value" data-value="wrap-reverse" data-title="反转 wrap 排列">wrap-reverse</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="align-content" data-title="align-content <br> 用于修改 flex-wrap 属性的行为">各行对齐：</span>
-			</div>
-			<div class="values" data-bind="parent">
-				<label class="value default" data-value="stretch" data-title="默认，各行将会伸展以占用剩余的空间">stretch</label>
-				<label class="value" data-value="flex-start" data-title="各行向弹性盒容器的起始位置堆叠">flex-start</label>
-				<label class="value" data-value="flex-end" data-title="各行向弹性盒容器的结束位置堆叠">flex-end</label>
-				<label class="value" data-value="center" data-title="各行向弹性盒容器的中间位置堆叠">center</label>
-				<label class="value" data-value="space-between" data-title="各行在弹性盒容器中平均分布">space-between</label>
-				<label class="value" data-value="space-around" data-title="各行在弹性盒容器中平均分布，两端保留子元素与子元素之间间距大小的一半">space-around</label>
-			</div>
-		</li>
-	</ul>
-	<h3>子元素属性</h3>
-	<ul>
-		<li>
-			<div class="propertys">
-				<span class="property" data-title="属性只会对单独的元素有效">操作元素：</span>
-			</div>
-			<a class="value active">盒子3</a>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="align-self" data-title="align-self">自身Y轴对齐：</span>
-			</div>
-			<div class="values" data-bind="child">
-				<label class="value default" data-value="auto" data-title="如果'align-self'的值为'auto'，则其计算值为元素的父元素的'align-items'值，如果其没有父元素，则计算值为'stretch'">auto</label>
-				<label class="value" data-value="flex-start" data-title="对齐Y轴的顶部">flex-start</label>
-				<label class="value" data-value="flex-end" data-title="对齐Y轴的底部">flex-end</label>
-				<label class="value" data-value="center" data-title="对齐Y轴的中间">center</label>
-				<label class="value" data-value="baseline" data-title="如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐">baseline</label>
-				<label class="value" data-value="stretch" data-title="如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制">stretch</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="flex" data-title="flex <br> 属性是 flex-grow、flex-shrink 和 flex-basis 属性的简写属性，默认值：0 1 auto">分配空间：</span>
-			</div>
-			<div class="values" data-bind="child">
-				<label class="value" data-value="auto" data-title="与 1 1 auto 相同">auto</label>
-				<label class="value default" data-value="initial" data-title="与 0 1 auto 相同">initial</label>
-				<label class="value" data-value="inherit" data-title="从父元素继承该属性">inherit</label>
-				<label class="value" data-value="none" data-title="与 0 0 auto 相同">none</label>
-				<label class="value" data-contol="input" data="flex-grow" data-value="" data-title="flex-grow 数字（正值），定义弹性盒子元素的扩展比率">flex-grow</label>
-				<label class="value" data-contol="input" data="flex-shrink" data-value="" data-title="flex-shrink 数字（正值），定义弹性盒子元素的收缩比率">flex-shrink</label>
-				<label class="value" data-contol="input" data="flex-basis" data-value="" data-title="flex-basis 数字（正值），有单位，定义弹性盒子元素的默认基准值">flex-basis</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="order" data-title="order">排序：</span>
-			</div>
-			<div class="values" data-bind="child">
-				<label class="value" data-contol="input" data-value="" data-title="用整数值来定义排列顺序，数值小的排在前面。可以为负值。">order</label>
-			</div>
-		</li>
-		<li>
-			<div class="propertys">
-				<span class="property" data="margin" data-title="margin">完美居中：</span>
-			</div>
-			<div class="values" data-bind="child">
-				<label class="value" data-contol="input" data-value="" data-title="上右下左，auto值为垂直水平居中">auto</label>
-			</div>
-		</li>
-	</ul>
-	<h3>代码</h3>
-	<pre><code class="code-wrap-parent"></code><code class="code-wrap-child"></code></pre>
-	<br>
-	<h3>相关</h3>
-	<a href="http://flexboxfroggy.com/#zh-cn" target="_blank">弹性盒子小游戏</a>
-	<a href="http://isux.tencent.com/css3/tools.html" target="_blank">CSS3 动画工具</a>
-</aside>
-<div class="show">
-	<div class="flex-container">
-		<div class="flex-item">盒子1</div>
-		<div class="flex-item">盒子2</div>
-		<div class="flex-item">盒子3</div>
-		<div class="flex-item">盒子4</div>
-		<div class="flex-item">盒子5</div>
-		<div class="flex-item">盒子6</div>
+<div class="wrap" id="app">
+	<aside class="control">
+		<h3>父元素属性</h3>
+		<ul>
+			<template v-for="p in parentElement">
+			<li>
+				<div class="propertys">
+					<span class="property" :data="p.property" :data-title="p.description.chn">{{ p.property }}：</span>
+				</div>
+				<div class="values" data-bind="parent">
+					<template v-for="v in p.value">
+						<label class="value" :class="{default: v.default}" :data-value="v.name" :data-title="v.description.chn">{{ v.name }}</label>
+					</template>
+				</div>
+			</li>
+			</template>
+		</ul>
+		<h3>子元素属性</h3>
+		<ul>
+			<li>
+				<div class="propertys">
+					<span class="property" data-title="属性只会对单独的元素有效">操作元素：</span>
+				</div>
+				<a class="value active">盒子3</a>
+			</li>
+			<li>
+				<div class="propertys">
+					<span class="property" data="align-self" data-title="align-self">自身Y轴对齐：</span>
+				</div>
+				<div class="values" data-bind="child">
+					<label class="value default" data-value="auto" data-title="如果'align-self'的值为'auto'，则其计算值为元素的父元素的'align-items'值，如果其没有父元素，则计算值为'stretch'">auto</label>
+					<label class="value" data-value="flex-start" data-title="对齐Y轴的顶部">flex-start</label>
+					<label class="value" data-value="flex-end" data-title="对齐Y轴的底部">flex-end</label>
+					<label class="value" data-value="center" data-title="对齐Y轴的中间">center</label>
+					<label class="value" data-value="baseline" data-title="如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐">baseline</label>
+					<label class="value" data-value="stretch" data-title="如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制">stretch</label>
+				</div>
+			</li>
+			<li>
+				<div class="propertys">
+					<span class="property" data="flex" data-title="flex <br> 属性是 flex-grow、flex-shrink 和 flex-basis 属性的简写属性，默认值：0 1 auto">分配空间：</span>
+				</div>
+				<div class="values" data-bind="child">
+					<label class="value" data-value="auto" data-title="与 1 1 auto 相同">auto</label>
+					<label class="value default" data-value="initial" data-title="与 0 1 auto 相同">initial</label>
+					<label class="value" data-value="inherit" data-title="从父元素继承该属性">inherit</label>
+					<label class="value" data-value="none" data-title="与 0 0 auto 相同">none</label>
+					<label class="value" data-contol="input" data="flex-grow" data-value="" data-title="flex-grow 数字（正值），定义弹性盒子元素的扩展比率">flex-grow</label>
+					<label class="value" data-contol="input" data="flex-shrink" data-value="" data-title="flex-shrink 数字（正值），定义弹性盒子元素的收缩比率">flex-shrink</label>
+					<label class="value" data-contol="input" data="flex-basis" data-value="" data-title="flex-basis 数字（正值），有单位，定义弹性盒子元素的默认基准值">flex-basis</label>
+				</div>
+			</li>
+			<li>
+				<div class="propertys">
+					<span class="property" data="order" data-title="order">排序：</span>
+				</div>
+				<div class="values" data-bind="child">
+					<label class="value" data-contol="input" data-value="" data-title="用整数值来定义排列顺序，数值小的排在前面。可以为负值。">order</label>
+				</div>
+			</li>
+			<li>
+				<div class="propertys">
+					<span class="property" data="margin" data-title="margin">完美居中：</span>
+				</div>
+				<div class="values" data-bind="child">
+					<label class="value" data-contol="input" data-value="" data-title="上右下左，auto值为垂直水平居中">auto</label>
+				</div>
+			</li>
+		</ul>
+		<h3>代码</h3>
+		<pre><code class="code-wrap-parent"></code><code class="code-wrap-child"></code></pre>
+		<br>
+		<h3>相关</h3>
+		<a href="http://flexboxfroggy.com/#zh-cn" target="_blank">弹性盒子小游戏</a>
+		<a href="http://isux.tencent.com/css3/tools.html" target="_blank">CSS3 动画工具</a>
+	</aside>
+	<div class="show">
+		<div class="flex-container">
+			<template v-for="box in childNum">
+				<div class="flex-item">{{ box }}</div>
+			</template>
+		</div>
 	</div>
 </div>
 
-<script src="js/highlight.pack.js"></script>
-<script src="js/main.js"></script>
+<script>
+
+const app = new Vue({
+	el: '#app',
+	mounted: function () {
+		for (let i = 0; i < this.childNum; i++) {
+			// childElement.push(this.childProperty)
+		}
+		console.log(this.childElement)
+	},
+	data: {
+		parentElement: [
+			{
+				property: "flex-direction",
+				description: {
+					"chn": "排列方式"
+				},
+				value: [
+					{
+						default: true,
+						name: "row",
+						description: {
+							"chn": "横向排列，从左到右排列（左对齐），默认的排列方式"
+						}
+					},
+					{
+						name: "row-reverse",
+						description: {
+							"chn": "反转横向排列，从右到左排列（右对齐）"
+						}
+					},
+					{
+						name: "column",
+						description: {
+							"chn": "纵向排列，从上到下排列"
+						}
+					},
+					{
+						name: "column-reverse",
+						description: {
+							"chn": "反转纵向排列，从下到上排列"
+						}
+					}
+				]
+			},
+			{
+				property: "justify-content",
+				description: {
+					chn: "水平对齐"
+				},
+				value: [
+					{
+						default: true,
+						name: "flex-start",
+						description: {
+							chn: "左对齐，默认的对齐方式"
+						}
+					},
+					{
+						name: "flex-end",
+						description: {
+							chn: "右对齐"
+						}
+					},
+					{
+						name: "center",
+						description: {
+							chn: "居中对齐，紧挨着"
+						}
+					},
+					{
+						name: "space-between",
+						description: {
+							chn: "平均分布，元素之间的间隔相等"
+						}
+					},
+					{
+						name: "space-around",
+						description: {
+							chn: "平均分布，元素的左右间隔相等"
+						}
+					}
+				]
+			},
+			{
+				property: "align-items",
+				description: {
+					chn: "垂直对齐"
+				},
+				value: [
+					{
+						name: "flex-start",
+						description: {
+							chn: "对齐垂直方向的顶部"
+						}
+					},
+					{
+						name: "flex-end",
+						description: {
+							chn: "对齐垂直方向的底部"
+						}
+					},
+					{
+						name: "center",
+						description: {
+							chn: "对齐垂直方向的中间"
+						}
+					},
+					{
+						name: "baseline",
+						description: {
+							chn: "如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐"
+						}
+					},
+					{
+						default: true,
+						name: "stretch",
+						description: {
+							chn: "如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制"
+						}
+					}
+				]
+			},
+			{
+				property: "flex-wrap",
+				description: {
+					chn: "换行方式"
+				},
+				value: [
+					{
+						default: true,
+						name: "nowrap",
+						description: {
+							chn: "默认，弹性容器为单行"
+						}
+					},
+					{
+						name: "wrap",
+						description: {
+							chn: "弹性容器为多行"
+						}
+					},
+					{
+						name: "wrap-reverse",
+						description: {
+							chn: "反转 wrap 排列"
+						}
+					}
+				]
+			},
+			{
+				property: "align-content",
+				description: {
+					chn: "用于修改 flex-wrap 属性的行为"
+				},
+				value: [
+					{
+						default: true,
+						name: "stretch",
+						description: {
+							chn: "默认，各行将会伸展以占用剩余的空间"
+						}
+					},
+					{
+						name: "flex-start",
+						description: {
+							chn: "各行向弹性盒容器的起始位置堆叠"
+						}
+					},
+					{
+						name: "flex-end",
+						description: {
+							chn: "各行向弹性盒容器的结束位置堆叠"
+						}
+					},
+					{
+						name: "center",
+						description: {
+							chn: "各行向弹性盒容器的中间位置堆叠"
+						}
+					},
+					{
+						name: "space-between",
+						description: {
+							chn: "各行在弹性盒容器中平均分布"
+						}
+					},
+					{
+						name: "space-around",
+						description: {
+							chn: "各行在弹性盒容器中平均分布，两端保留子元素与子元素之间间距大小的一半"
+						}
+					}
+				]
+			}
+		],
+		childNum: 5,
+		childElement: [],
+		childProperty: [
+			{
+				property: "align-self",
+				description: {
+					"chn": "自身垂直方向对齐"
+				},
+				value: [
+					{
+						default: true,
+						name: "auto",
+						description: {
+							"chn": "如果'align-self'的值为'auto'，则其计算值为元素的父元素的'align-items'值，如果其没有父元素，则计算值为'stretch'"
+						}
+					},
+					{
+						name: "flex-start",
+						description: {
+							"chn": "对齐垂直方向的顶部"
+						}
+					},
+					{
+						name: "flex-end",
+						description: {
+							"chn": "对齐垂直方向的底部"
+						}
+					},
+					{
+						name: "center",
+						description: {
+							"chn": "对齐垂直方向的中间"
+						}
+					},
+					{
+						name: "baseline",
+						description: {
+							"chn": "如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐"
+						}
+					},
+					{
+						name: "stretch",
+						description: {
+							"chn": "如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制"
+						}
+					}
+				]
+			},
+			{
+				property: "flex",
+				description: {
+					"chn": "flex <br> 属性是 flex-grow、flex-shrink 和 flex-basis 属性的简写属性，默认值：0 1 auto"
+				},
+				value: [
+					{
+						name: "auto",
+						description: {
+							"chn": "与 1 1 auto 相同"
+						}
+					},
+					{
+						default: true,
+						name: "initial",
+						description: {
+							"chn": "初始值，与 0 1 auto 相同"
+						}
+					},
+					{
+						name: "inherit",
+						description: {
+							"chn": "从父元素继承该属性"
+						}
+					},
+					{
+						name: "none",
+						description: {
+							"chn": "与 0 0 auto 相同"
+						}
+					},
+					{
+						control: "input",
+						type: "number",
+						name: "flex-grow",
+						description: {
+							"chn": "flex-grow 数字（正值），定义弹性盒子元素的扩展比率"
+						}
+					},
+					{
+						control: "input",
+						type: "number",
+						name: "flex-shrink",
+						description: {
+							"chn": "flex-shrink 数字（正值），定义弹性盒子元素的收缩比率"
+						}
+					},
+					{
+						control: "input",
+						type: "number",
+						name: "flex-basis",
+						description: {
+							"chn": "flex-basis 数字（正值），有单位，定义弹性盒子元素的默认基准值"
+						}
+					}
+				]
+			},
+			{
+				property: "order",
+				description: {
+					"chn": "排序"
+				},
+				value: [
+					{
+						control: "input",
+						type: "number",
+						description: {
+							"chn": "用整数值来定义排列顺序，数值小的排在前面。可以为负值。"
+						}
+					},
+				]
+			},
+			{
+				property: "margin",
+				description: {
+					"chn": "排序"
+				},
+				value: [
+					{
+						control: "input",
+						type: "text",
+						placeholder: "",
+						description: {
+							"chn": "数字，四个值，分别是上右下左<br>或者 auto（垂直水平居中）"
+						}
+					},
+				]
+			}
+		]
+	}
+})
+
+</script>
+
 </body>
 </html>
