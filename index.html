@@ -49,10 +49,10 @@
 							<div class="values" data-bind="child">
 								<template v-for="(v, vk) in ce.value">							
 									<template v-if="v.control === 'input'">
-										<input class="value" :class="{default: v.default, active: false}" :type="v.type" :placeholder="v.placeholder" :min="v.min" :style="v.style" v-model="v.value" :data-title="v.description.chn" @input="chooseBoxValue(pk, vk, true)">
+										<input class="value" :class="{default: v.default, active: v.chooseValue !== undefined}" :type="v.type" :placeholder="v.placeholder" :min="v.min" :style="v.style" v-model="v.value" :data-title="v.description.chn" @input="chooseBoxValue(pk, vk, true)">
 									</template>
 									<template v-else>
-										<label class="value" :class="{default: v.default, active: false}" :data-value="v.name" :data-title="v.description.chn" @click="chooseBoxValue(pk, vk)">
+										<label class="value" :class="{default: v.default, active: v.chooseValue !== undefined}" :data-value="v.name" :data-title="v.description.chn" @click="chooseBoxValue(pk, vk)">
 											{{ v.name }}
 										</label>
 									</template>
@@ -95,6 +95,11 @@ const app = new Vue({
 		init: function () {
 			for (let i = 0; i < this.childNum; i++) {
 				this.childElement.push(this.childProperty)
+				this.childChoosed.push([
+					{
+						chooseValue: ''
+					}
+				])
 			}
 		},
 		chooseBox: function (k) {
@@ -108,9 +113,9 @@ const app = new Vue({
 				codeWrap = $(".code-wrap-child-"+ childNumber),
 				nowBox = $(".flex-item:nth-child("+ childNumber +")");
 
-			this.childElement[this.nowChild][propertyKey].chooseValue = choose.value[valueKey].name; // 存储当前选择的值
-			// console.log(this.childElement);
-			// this.childElement[this.nowChild].chooseValue = choose.value[valueKey].name; // 存储当前选择的值
+			this.childElement[this.nowChild][propertyKey].value[valueKey].chooseValue = this.childElement[this.nowChild][propertyKey].value[valueKey].name; // 存储当前选择的值
+			// this.childChoosed[this.nowChild][propertyKey].chooseValue = choose.value[valueKey].name; // 存储当前选择的值
+			console.log(this.childElement);
 			
 			if (enter){
 				nowBox.style.cssText += choose.value[valueKey].name +":"+ choose.value[valueKey].value;
@@ -325,6 +330,7 @@ const app = new Vue({
 		childNum: 5,
 		childElement: [],
 		nowChild: 0,
+		childChoosed: [],
 		childProperty: [
 			{
 				property: "align-self",

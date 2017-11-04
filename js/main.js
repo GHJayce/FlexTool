@@ -100,8 +100,8 @@ function toolTip(element){
 
 				tooltip.appendChild(tooltipInner);
 				document.body.appendChild(tooltip);
-				// console.log(e, ele.offsetTop, tooltip.offsetHeight - 5)
-				var top = e.y - tooltip.offsetHeight - 5;
+				
+				var top = ele.offsetTop - $(".control").scrollTop - tooltip.offsetHeight - 5;
 				var left = ele.offsetLeft + ele.offsetWidth / 2 - tooltip.offsetWidth / 2;
 				left = left <= 0 ? -5 : left;
 				tooltip.style.cssText = "top:"+ top +"px;left:"+ left +"px;";
